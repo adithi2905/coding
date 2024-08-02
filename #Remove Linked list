@@ -1,0 +1,53 @@
+Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode recr(ListNode head,int val)
+    {
+        ListNode prev=null,curr=head;
+       while(curr!=null)
+       {
+        if(curr.val==val)
+        {
+            if(curr.next==null&& prev!=null)
+            prev.next=null;
+            else if(curr.next==null && prev==null)
+            return null;
+            curr=curr.next;
+        }
+        else
+        {
+            if(prev==null)
+            {
+                prev=curr;
+                head=curr;
+                curr=curr.next;
+            }
+            
+            else
+            {
+                prev.next=curr;
+                prev=prev.next;
+                curr=curr.next;
+            }
+        }
+    }
+    return head;
+    }
+   
+    public ListNode removeElements(ListNode head, int val) 
+    {
+        head=recr(head,val);
+        return head;
+    }
+}
