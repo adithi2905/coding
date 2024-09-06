@@ -1,0 +1,43 @@
+#Remove Nodes from Linked list
+
+TLE (working on optimization)
+public ListNode removeNodes(ListNode head) {
+        ListNode curr=head,prev=null;
+        HashMap<ListNode,ListNode>hm=new HashMap<>();
+        while(curr!=null)
+        {
+            hm.put(curr,prev);
+            prev=curr;
+            curr=curr.next;
+        }
+        ListNode last=new ListNode();
+        curr=head;
+        while(curr!=null)
+        {
+            last=curr;
+            curr=curr.next;
+        }
+        prev=hm.get(last);
+       // System.out.print(last.val);
+        while(prev!=null)
+        {
+            
+            if((prev.val<last.val))
+            {
+            curr=hm.get(prev);
+            if(curr==head)
+            {
+                if(curr.val<last.val)
+                head=last;
+            }
+            curr.next=last; 
+            }
+         
+            last=curr;
+            prev=hm.get(last);
+        }
+        
+        
+        
+        return head;
+    }
